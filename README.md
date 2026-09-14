@@ -10,11 +10,12 @@ information in the message body.
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# Have a local Postgres running, then:
-createdb oncall
-cp .env.example .env   # edit DATABASE_URL / Twilio creds
+# Start local Postgres in Docker (matches the DB_USER/DB_PASS/DB_NAME defaults below):
+docker compose up -d
 
-python seed.py          # edit the SURGEONS list in seed.py first!
+cp .env.example .env   # edit DB_USER/DB_PASS/DB_NAME / Twilio creds / SURGEON_NAMES / SURGEON_NUMBERS
+
+python seed.py
 uvicorn app.main:app --reload
 ```
 
@@ -39,10 +40,13 @@ stay clear of handling health information in the message content.
 
 ## Editing the roster
 
-For now, `seed.py` is the roster editor - open it, put in the three real
-names/numbers and adjust the rotation logic, then re-run
-`python seed.py` to reset the schedule. A small web form for editing the
-roster is a natural next step once the notify flow itself is proven out.
+Names and numbers live in `.env` (`SURGEON_NAMES` / `SURGEON_NUMBERS`,
+comma-separated, matched up by position) rather than in `seed.py`, so the
+real roster never ends up committed to git. Update `.env`, then re-run
+`python seed.py` to reset the schedule; edit the rotation logic in
+`seed.py` itself if you need something other than one week each. A small
+web form for editing the roster is a natural next step once the notify
+flow itself is proven out.
 
 ## Not included yet (intentionally, for a v1)
 

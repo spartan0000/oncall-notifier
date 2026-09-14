@@ -1,0 +1,16 @@
+.ipynb_checkpoints/
+*.json
+__pycache__/
+/outputs
+venv/
+.venv/
+*.venv
+*.parquet
+*.ipynb
+*.csv
+*.pyc
+*.env
+.aws/
+.vscode/
+.idea/
+Thumbs.db
