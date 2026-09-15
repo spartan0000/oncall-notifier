@@ -7,9 +7,10 @@ class Settings(BaseSettings):
     db_name: str = "oncall"
     db_host: str = "localhost"
     db_port: int = 5432
-    twilio_account_sid: str = ""
-    twilio_auth_token: str = ""
-    twilio_from_number: str = ""
+    clicksend_username: str = ""
+    clicksend_api_key: str = ""
+    clicksend_from_number: str = ""  # optional: leave blank to let ClickSend pick a sender
+
     dry_run: bool = True
 
     # Comma-separated, matched up by position, e.g.:
